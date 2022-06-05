@@ -15,7 +15,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
   function hideTabContent () {
     tabContent.forEach((item) => {
-      item.style.display = "none";
+      item.classList.add("tab-none");
+      item.classList.remove("tab-block")
     });
     tabs.forEach((item) => {
       item.classList.remove("tabheader__item_active")
@@ -23,7 +24,8 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   function showTabContent(i = 0) {
-    tabContent[i].style.display = "block";
+    tabContent[i].classList.add("tab-block");
+    tabContent[i].classList.remove("tab-none")
     tabs[i].classList.add("tabheader__item_active")
   }
   hideTabContent();
@@ -38,5 +40,45 @@ window.addEventListener("DOMContentLoaded", () => {
         }
       })
     }
+  });
+
+  // MODAL 
+  const modalBtn = document.querySelectorAll("[data-modal]");
+  const modal = document.querySelector(".modal");
+  const modalClose = document.querySelector("[data-close]");
+
+  modalBtn.forEach((btn) => {
+    btn.addEventListener("click", openModal)
   })
+
+  function openModal () {
+    modal.classList.add("show");
+    modal.classList.remove("hide");
+    document.body.style.overflow = "hidden";
+    clearInterval(modalTimer)
+  };
+
+  function closeModal () {
+    modal.classList.add("hide");
+    modal.classList.remove("show")
+    document.body.style.overflow = "";
+  };
+
+  modalClose.addEventListener("click", closeModal);
+
+  modal.addEventListener("click", (evt) => {
+    if (evt.target === modal) {
+      closeModal();
+    }
+  });
+
+ const modalTimer = setTimeout(openModal, 5000); 
+
+function showMyModdalByScroll () {
+  if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
+    openModal();
+    window.removeEventListener("scroll", showMyModdalByScroll)
+  }
+};
+window.addEventListener("scroll", showMyModdalByScroll)
 });
