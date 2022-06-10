@@ -174,5 +174,73 @@ function setClock (selector, endtime) {
     }
   }
 }
-setClock(".timer", deadLine)
+setClock(".timer", deadLine);
+
+// CLASS
+
+class CarCard {
+  constructor(src, alt, title, descr, price, parentSelector, ...classess) {
+    this.src = src
+    this.alt = alt
+    this.title = title
+    this.price = price
+    this.parent = document.querySelector(parentSelector)
+    this.transfer = 10.500
+    this.changeToUsd()
+  }
+  changeToUsd() {
+    this.price = this.price * this.transfer
+  }
+
+  render() {
+    const element = document.createElement("div");
+     
+    element.innerHTML = `
+    <div class="menu__item">
+            <img src=${this.src} alt=${this.alt} />
+            <h3 class="menu__item-subtitle">${this.title}</h3>
+            <div class="menu__item-descr">
+              ${this.descr}
+            </div>
+            <div class="menu__item-divider"></div>
+            <div class="menu__item-price">
+              <div class="menu__item-cost">Price:</div>
+              <div class="menu__item-total"><span>${this.price}</span> $</div>
+            </div>
+    </div>
+    `
+    this.parent.append(element)
+  }
+};
+
+  new CarCard(
+    "img/tabs/1.jpg",
+    "car",
+    "2021 Mercedes-Benz C-Class",
+    `The 2021 Mercedes-Benz C-Class finishes in the top half of our
+    luxury small car rankings. It's powerful and upscale, but it has
+    so-so handli...`,
+    140,
+    ".menu .container"
+  ).render()
+  new CarCard(
+    "img/tabs/2.jpg",
+    "car",
+    "2021 Mercedes-Benz C-Class",
+    `The 2021 Mercedes-Benz C-Class finishes in the top half of our
+    luxury small car rankings. It's powerful and upscale, but it has
+    so-so handli...`,
+    140,
+    ".menu .container"
+  ).render()
+  new CarCard(
+    "img/tabs/3.jpg",
+    "car",
+    "2021 Mercedes-Benz C-Class",
+    `The 2021 Mercedes-Benz C-Class finishes in the top half of our
+    luxury small car rankings. It's powerful and upscale, but it has
+    so-so handli...`,
+    140,
+    ".menu .container"
+  ).render()
 });
